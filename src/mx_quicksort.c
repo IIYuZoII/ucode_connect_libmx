@@ -2,6 +2,7 @@
 
 
 int mx_quicksort(char **arr, int left, int right) {
+    if (!arr || !*arr) return -1;
     static int res = 0;
     int left_index = left;
     int right_index = right;

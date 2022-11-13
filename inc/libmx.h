@@ -75,6 +75,7 @@ char *mx_del_extra_whitespaces(const char *str);              // pdf
 char **mx_strsplit(char const *s, char c);                    // pdf
 char *mx_strjoin(char const *s1, char const *s2);             // pdf
 char *mx_file_to_str(const char *filename);                   // pdf
+int mx_quicksort(char **arr, int left, int right);
 int mx_read_line(char **lineptr, size_t buf_size, char delim,
                  const int fd);  // pdf
 

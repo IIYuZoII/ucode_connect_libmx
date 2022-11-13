@@ -1,7 +1,5 @@
 #include "../inc/libmx.h"
 
-
-
 int mx_read_line(char **lineptr, size_t buf_size, char delim, const int fd) {
     int count_bytes = 0;
     char *buff_big = NULL;
@@ -13,8 +11,12 @@ int mx_read_line(char **lineptr, size_t buf_size, char delim, const int fd) {
         char *buff_small = (char *)malloc(sizeof(char) * buf_size);
         char *temp = buff_big;
         status_of_reading = read(fd, buff_small, buf_size);
-        if (status_of_reading < 0) return -2;
-
+        if (status_of_reading < 0) {
+            free(buff_small);
+            if (buff_big) free(buff_big);
+            if (temp) free(temp);
+            return -2;
+        }
         if (mx_strchr(buff_small, delim) != NULL) {
             char *temp_dup = mx_duplicate_str_before_chr(buff_small, delim);
             buff_big = mx_strjoin(buff_big, temp_dup);
@@ -46,7 +48,6 @@ int mx_read_line(char **lineptr, size_t buf_size, char delim, const int fd) {
     free(buff_big);
     return count_bytes;
 }
-
 
 // int main(void) {
 //     int fd = open("../text.txt", O_RDONLY);

@@ -6,13 +6,13 @@ char *mx_file_to_str(const char *filename) {
     char *str_res = NULL;
     int lenght = 0;
     int fd = open(filename, O_RDONLY);
-    
-    if (fd == -1) return NULL;
+
+    if (fd < 0) return NULL;
     while (read(fd, &buff, 1) > 0) lenght++;
     if (close(fd) == -1) return NULL;
-
+    if (lenght == 0) return NULL;
     fd = open(filename, O_RDONLY);
-    if (fd == -1) return NULL;
+    if (fd < 0) return NULL;
     str_res = mx_strnew(lenght);
 
     for (int i = 0; i < lenght; i++) {
@@ -23,13 +23,8 @@ char *mx_file_to_str(const char *filename) {
     return str_res;
 }
 
-
-
-
 // int main(int argc, char const *argv[]) {
 //     if (argc) {}
 //     printf("%s\n", mx_file_to_str(argv[1]));
 //     return 0;
 // }
-
-
